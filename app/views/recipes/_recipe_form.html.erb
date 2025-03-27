@@ -1,0 +1,39 @@
+<%= simple_form_for(recipe, html: { class: 'recipe-form' }) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :title %>
+    <%= f.input :description, as: :text %>
+    <%= f.input :prep_time, label: "Prep Time (minutes)" %>
+    <%= f.input :cook_time, label: "Cook Time (minutes)" %>
+    <%= f.input :servings %>
+  </div>
+
+  <h3>Ingredients</h3>
+  <div id="ingredients">
+    <%= f.simple_fields_for :ingredients do |ingredient_fields| %>
+      <div class="ingredient">
+        <%= ingredient_fields.input :name, label: "Ingredient Name" %>
+        <%= ingredient_fields.input :quantity, label: "Quantity" %>
+        <%= ingredient_fields.input :unit, label: "Unit" %>
+        <!-- You can add a link or button here for removal if you implement dynamic nested forms -->
+      </div>
+    <% end %>
+  </div>
+
+  <h3>Instruction Steps</h3>
+  <div id="instruction_steps">
+    <%= f.simple_fields_for :instruction_steps do |instruction_fields| %>
+      <div class="instruction_step">
+        <%= instruction_fields.input :order, label: "Step Number" %>
+        <%= instruction_fields.input :text, as: :text, label: "Instruction" %>
+        <%= instruction_fields.input :media_url, label: "Media URL (optional)" %>
+        <!-- Similarly, add removal controls as needed -->
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Save Recipe" %>
+  </div>
+<% end %>
